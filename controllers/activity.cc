@@ -16,7 +16,7 @@ namespace cms
 
     void activity::find_all(const HttpRequestPtr& req, func_t&& callback)
     {
-        auto db = drogon::orm::Mapper<Activities>(DATABASE_CLIENT);
+        auto db = Mapper<Activities>(DATABASE_CLIENT);
 
         auto activities = db.findAll();
 
@@ -27,7 +27,7 @@ namespace cms
             json["success"] = false;
 
             auto response = HttpResponse::newHttpJsonResponse(json);
-            response->setStatusCode(drogon::HttpStatusCode::k404NotFound);
+            response->setStatusCode(HttpStatusCode::k404NotFound);
 
             callback(response);
         }
@@ -67,7 +67,7 @@ namespace cms
                 json["success"] = false;
 
                 auto response = HttpResponse::newHttpJsonResponse(json);
-                response->setStatusCode(drogon::HttpStatusCode::k404NotFound);
+                response->setStatusCode(HttpStatusCode::k404NotFound);
 
                 callback(response);
             }
@@ -77,7 +77,7 @@ namespace cms
                 json["success"] = false;
 
                 auto response = HttpResponse::newHttpJsonResponse(json);
-                response->setStatusCode(drogon::HttpStatusCode::k500InternalServerError);
+                response->setStatusCode(HttpStatusCode::k500InternalServerError);
 
                 callback(response);
             }
@@ -120,7 +120,7 @@ namespace cms
             resp["success"] = false;
 
             auto response = HttpResponse::newHttpJsonResponse(resp);
-            response->setStatusCode(drogon::HttpStatusCode::k500InternalServerError);
+            response->setStatusCode(HttpStatusCode::k500InternalServerError);
 
             callback(response);
         }
@@ -170,7 +170,7 @@ namespace cms
         {
             resp["message"] = std::format("Update activity failed, error caught on {}", e.what());
             resp["success"] = false;
-            response->setStatusCode(drogon::HttpStatusCode::k500InternalServerError);
+            response->setStatusCode(HttpStatusCode::k500InternalServerError);
 
             callback(response);
         }
@@ -203,7 +203,7 @@ namespace cms
                 resp["success"] = false;
 
                 auto response = HttpResponse::newHttpJsonResponse(resp);
-                response->setStatusCode(drogon::HttpStatusCode::k400BadRequest);
+                response->setStatusCode(HttpStatusCode::k400BadRequest);
 
                 callback(response);
             }
@@ -213,7 +213,7 @@ namespace cms
                 resp["success"] = false;
 
                 auto response = HttpResponse::newHttpJsonResponse(resp);
-                response->setStatusCode(drogon::HttpStatusCode::k500InternalServerError);
+                response->setStatusCode(HttpStatusCode::k500InternalServerError);
 
                 callback(response);
             }
