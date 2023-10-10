@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="K:\Coding\2023\Dragon Test\Note\main.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="K:\Coding\2023\Dragon Test\Note\controllers\activity.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="K:\Coding\2023\Dragon Test\Note\models\AccessLevels.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="K:\Coding\2023\Dragon Test\Note\models\Activities.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="K:\Coding\2023\Dragon Test\Note\models\Balances.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="K:\Coding\2023\Dragon Test\Note\models\Binaries.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="K:\Coding\2023\Dragon Test\Note\models\ClientMonitors.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="K:\Coding\2023\Dragon Test\Note\models\ExceptionMessages.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="K:\Coding\2023\Dragon Test\Note\models\FailedJobs.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="K:\Coding\2023\Dragon Test\Note\models\Migrations.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="K:\Coding\2023\Dragon Test\Note\models\Ownerships.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="K:\Coding\2023\Dragon Test\Note\models\PasswordResets.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="K:\Coding\2023\Dragon Test\Note\models\PersonalAccessTokens.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="K:\Coding\2023\Dragon Test\Note\models\Restrictions.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="K:\Coding\2023\Dragon Test\Note\models\Roles.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="K:\Coding\2023\Dragon Test\Note\models\Transactions.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="K:\Coding\2023\Dragon Test\Note\models\Users.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="K:\Coding\2023\Dragon Test\Note\models\Wallets.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="K:\Coding\2023\Dragon Test\Note\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{B1815DD9-1F44-3553-A2E1-564CBDF7ACC6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
