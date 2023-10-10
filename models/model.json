@@ -39,42 +39,45 @@
       }]
     },
     "relationships": {
-        "enabled": false,
-        "items": [{
+        "enabled": true,
+        "items": [
+            //Has One
+            {
                 "type": "has one",
-                "original_table_name": "products",
-                "original_table_alias": "product",
-                "original_key": "id",
-                "target_table_name": "skus",
-                "target_table_alias": "SKU",
-                "target_key": "product_id",
-                "enable_reverse": true
-            },
-            {
-                "type": "has many",
-                "original_table_name": "products",
-                "original_table_alias": "product",
-                "original_key": "id",
-                "target_table_name": "reviews",
-                "target_table_alias": "",
-                "target_key": "product_id",
-                "enable_reverse": true
-            },
-            {
-                "type": "many to many",
-                "original_table_name": "products",
+                "original_table_name": "activities",
                 "original_table_alias": "",
-                "original_key": "id",
-                "pivot_table": {
-                    "table_name": "carts_products",
-                    "original_key": "product_id",
-                    "target_key": "cart_id"
-                },
-                "target_table_name": "carts",
+                "original_key": "user_id",
+                "target_table_name": "users",
                 "target_table_alias": "",
                 "target_key": "id",
-                "enable_reverse": true
+                "enable_reverse": false
+            },
+            //Has Many
+            {
+                "type": "has one",
+                "original_table_name": "users",
+                "original_table_alias": "",
+                "original_key": "id",
+                "target_table_name": "activities",
+                "target_table_alias": "",
+                "target_key": "user_id",
+                "enable_reverse": false
             }
+            // {
+            //     "type": "many to many",
+            //     "original_table_name": "products",
+            //     "original_table_alias": "",
+            //     "original_key": "id",
+            //     "pivot_table": {
+            //         "table_name": "carts_products",
+            //         "original_key": "product_id",
+            //         "target_key": "cart_id"
+            //     },
+            //     "target_table_name": "carts",
+            //     "target_table_alias": "",
+            //     "target_key": "id",
+            //     "enable_reverse": true
+            // }
         ]
     },
     "restful_api_controllers": {

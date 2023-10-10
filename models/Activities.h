@@ -37,6 +37,7 @@ namespace drogon_model
 {
 namespace remote_binary
 {
+class Users;
 
 class Activities
 {
@@ -179,6 +180,10 @@ class Activities
     Json::Value toJson() const;
     Json::Value toMasqueradedJson(const std::vector<std::string> &pMasqueradingVector) const;
     /// Relationship interfaces
+    Users getUsers(const drogon::orm::DbClientPtr &clientPtr) const;
+    void getUsers(const drogon::orm::DbClientPtr &clientPtr,
+                  const std::function<void(Users)> &rcb,
+                  const drogon::orm::ExceptionCallback &ecb) const;
   private:
     friend drogon::orm::Mapper<Activities>;
     friend drogon::orm::BaseBuilder<Activities, true, true>;

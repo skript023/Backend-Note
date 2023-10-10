@@ -36,7 +36,9 @@ namespace cms
 
         for (const auto& activity : activities) 
         {
-            res.append(activity.toJson());
+            Json::Value data(activity.toJson());
+            data["user"] = activity.getUsers(DATABASE_CLIENT).toJson();
+            res.append(data);
         }
         auto response = HttpResponse::newHttpJsonResponse(res);
         

@@ -2,6 +2,7 @@
 
 #include <drogon/HttpController.h>
 #include "models/Activities.h"
+#include "models/Users.h"
 
 using namespace drogon_model::remote_binary;
 using namespace drogon::orm;

@@ -6,6 +6,7 @@
  */
 
 #include "Activities.h"
+#include "Users.h"
 #include <drogon/utils/Utilities.h>
 #include <string>
 
@@ -1692,4 +1693,42 @@ bool Activities::validJsonOfField(size_t index,
             return false;
     }
     return true;
+}
+Users Activities::getUsers(const drogon::orm::DbClientPtr &clientPtr) const {
+    std::shared_ptr<std::promise<Users>> pro(new std::promise<Users>);
+    std::future<Users> f = pro->get_future();
+    getUsers(clientPtr, [&pro] (Users result) {
+        try {
+            pro->set_value(result);
+        }
+        catch (...) {
+            pro->set_exception(std::current_exception());
+        }
+    }, [&pro] (const DrogonDbException &err) {
+        pro->set_exception(std::make_exception_ptr(err));
+    });
+    return f.get();
+}
+void Activities::getUsers(const DbClientPtr &clientPtr,
+                          const std::function<void(Users)> &rcb,
+                          const ExceptionCallback &ecb) const
+{
+    const static std::string sql = "select * from users where id = ?";
+    *clientPtr << sql
+               << *userId_
+               >> [rcb = std::move(rcb), ecb](const Result &r){
+                    if (r.size() == 0)
+                    {
+                        ecb(UnexpectedRows("0 rows found"));
+                    }
+                    else if (r.size() > 1)
+                    {
+                        ecb(UnexpectedRows("Found more than one row"));
+                    }
+                    else
+                    {
+                        rcb(Users(r[0]));
+                    }
+               }
+               >> ecb;
 }
