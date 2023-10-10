@@ -90,7 +90,7 @@ namespace cms
             const auto& json = *req->getJsonObject().get();
             
             Activities activity;
-            auto db = drogon::orm::Mapper<Activities>(DATABASE_CLIENT);
+            auto db = Mapper<Activities>(DATABASE_CLIENT);
 
             std::string start(json["start_date"].asCString());
             std::string end(json["end_date"].asString());
