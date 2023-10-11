@@ -38,6 +38,7 @@ namespace cms
         {
             Json::Value data(activity.toJson());
             data["user"] = activity.getUsers(DATABASE_CLIENT).toJson();
+            data["user"]["role"] = activity.getUsers(DATABASE_CLIENT).getRoles(DATABASE_CLIENT).toJson();
             res.append(data);
         }
         auto response = HttpResponse::newHttpJsonResponse(res);
@@ -54,6 +55,8 @@ namespace cms
         {
             auto activity = db.findByPrimaryKey(stoll(id));
             json = activity.toJson();
+            json["user"] = activity.getUsers(DATABASE_CLIENT).toJson();
+            json["user"]["role"] = activity.getUsers(DATABASE_CLIENT).getRoles(DATABASE_CLIENT).toJson();
 
             auto response = HttpResponse::newHttpJsonResponse(json);
             

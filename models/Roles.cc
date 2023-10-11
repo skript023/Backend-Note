@@ -6,6 +6,7 @@
  */
 
 #include "Roles.h"
+#include "Users.h"
 #include <drogon/utils/Utilities.h>
 #include <string>
 
@@ -1004,4 +1005,37 @@ bool Roles::validJsonOfField(size_t index,
             return false;
     }
     return true;
+}
+std::vector<Users> Roles::getUsers(const drogon::orm::DbClientPtr &clientPtr) const {
+    std::shared_ptr<std::promise<std::vector<Users>>> pro(new std::promise<std::vector<Users>>);
+    std::future<std::vector<Users>> f = pro->get_future();
+    getUsers(clientPtr, [&pro] (std::vector<Users> result) {
+        try {
+            pro->set_value(result);
+        }
+        catch (...) {
+            pro->set_exception(std::current_exception());
+        }
+    }, [&pro] (const DrogonDbException &err) {
+        pro->set_exception(std::make_exception_ptr(err));
+    });
+    return f.get();
+}
+void Roles::getUsers(const DbClientPtr &clientPtr,
+                     const std::function<void(std::vector<Users>)> &rcb,
+                     const ExceptionCallback &ecb) const
+{
+    const static std::string sql = "select * from users where role_id = ?";
+    *clientPtr << sql
+               << *id_
+               >> [rcb = std::move(rcb)](const Result &r){
+                   std::vector<Users> ret;
+                   ret.reserve(r.size());
+                   for (auto const &row : r)
+                   {
+                       ret.emplace_back(Users(row));
+                   }
+                   rcb(ret);
+               }
+               >> ecb;
 }

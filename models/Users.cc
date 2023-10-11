@@ -7,6 +7,7 @@
 
 #include "Users.h"
 #include "Activities.h"
+#include "Roles.h"
 #include <drogon/utils/Utilities.h>
 #include <string>
 
@@ -3854,10 +3855,48 @@ bool Users::validJsonOfField(size_t index,
     }
     return true;
 }
-Activities Users::getActivities(const drogon::orm::DbClientPtr &clientPtr) const {
-    std::shared_ptr<std::promise<Activities>> pro(new std::promise<Activities>);
-    std::future<Activities> f = pro->get_future();
-    getActivities(clientPtr, [&pro] (Activities result) {
+Roles Users::getRoles(const drogon::orm::DbClientPtr &clientPtr) const {
+    std::shared_ptr<std::promise<Roles>> pro(new std::promise<Roles>);
+    std::future<Roles> f = pro->get_future();
+    getRoles(clientPtr, [&pro] (Roles result) {
+        try {
+            pro->set_value(result);
+        }
+        catch (...) {
+            pro->set_exception(std::current_exception());
+        }
+    }, [&pro] (const DrogonDbException &err) {
+        pro->set_exception(std::make_exception_ptr(err));
+    });
+    return f.get();
+}
+void Users::getRoles(const DbClientPtr &clientPtr,
+                     const std::function<void(Roles)> &rcb,
+                     const ExceptionCallback &ecb) const
+{
+    const static std::string sql = "select * from roles where id = ?";
+    *clientPtr << sql
+               << *roleId_
+               >> [rcb = std::move(rcb), ecb](const Result &r){
+                    if (r.size() == 0)
+                    {
+                        ecb(UnexpectedRows("0 rows found"));
+                    }
+                    else if (r.size() > 1)
+                    {
+                        ecb(UnexpectedRows("Found more than one row"));
+                    }
+                    else
+                    {
+                        rcb(Roles(r[0]));
+                    }
+               }
+               >> ecb;
+}
+std::vector<Activities> Users::getActivities(const drogon::orm::DbClientPtr &clientPtr) const {
+    std::shared_ptr<std::promise<std::vector<Activities>>> pro(new std::promise<std::vector<Activities>>);
+    std::future<std::vector<Activities>> f = pro->get_future();
+    getActivities(clientPtr, [&pro] (std::vector<Activities> result) {
         try {
             pro->set_value(result);
         }
@@ -3870,25 +3909,20 @@ Activities Users::getActivities(const drogon::orm::DbClientPtr &clientPtr) const
     return f.get();
 }
 void Users::getActivities(const DbClientPtr &clientPtr,
-                          const std::function<void(Activities)> &rcb,
+                          const std::function<void(std::vector<Activities>)> &rcb,
                           const ExceptionCallback &ecb) const
 {
     const static std::string sql = "select * from activities where user_id = ?";
     *clientPtr << sql
                << *id_
-               >> [rcb = std::move(rcb), ecb](const Result &r){
-                    if (r.size() == 0)
-                    {
-                        ecb(UnexpectedRows("0 rows found"));
-                    }
-                    else if (r.size() > 1)
-                    {
-                        ecb(UnexpectedRows("Found more than one row"));
-                    }
-                    else
-                    {
-                        rcb(Activities(r[0]));
-                    }
+               >> [rcb = std::move(rcb)](const Result &r){
+                   std::vector<Activities> ret;
+                   ret.reserve(r.size());
+                   for (auto const &row : r)
+                   {
+                       ret.emplace_back(Activities(row));
+                   }
+                   rcb(ret);
                }
                >> ecb;
 }

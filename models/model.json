@@ -52,15 +52,35 @@
                 "target_key": "id",
                 "enable_reverse": false
             },
-            //Has Many
             {
                 "type": "has one",
+                "original_table_name": "users",
+                "original_table_alias": "",
+                "original_key": "role_id",
+                "target_table_name": "roles",
+                "target_table_alias": "",
+                "target_key": "id",
+                "enable_reverse": false
+            },
+            //Has Many
+            {
+                "type": "has many",
                 "original_table_name": "users",
                 "original_table_alias": "",
                 "original_key": "id",
                 "target_table_name": "activities",
                 "target_table_alias": "",
                 "target_key": "user_id",
+                "enable_reverse": false
+            },
+            {
+                "type": "has many",
+                "original_table_name": "roles",
+                "original_table_alias": "",
+                "original_key": "id",
+                "target_table_name": "users",
+                "target_table_alias": "",
+                "target_key": "role_id",
                 "enable_reverse": false
             }
             // {
