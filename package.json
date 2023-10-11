@@ -3,7 +3,8 @@
     "version": "1.0.0",
     "scripts": {
       "start": "cd build/Release && Note.exe",
-      "test": "cd build/test/Release && Note_test.exe"
+      "test": "cd build/test/Release && Note_test.exe",
+      "build": "cd build && cmake --build ./ --config Release --target ALL_BUILD -j && cd Release && Note.exe"
     }
 }
   
