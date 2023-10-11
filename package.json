@@ -1,0 +1,9 @@
+{
+    "name": "your-project",
+    "version": "1.0.0",
+    "scripts": {
+      "start": "cd build/Release && Note.exe",
+      "test": "cd build/test/Release && Note_test.exe"
+    }
+}
+  
