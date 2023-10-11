@@ -4,7 +4,8 @@
     "scripts": {
       "start": "cd build/Release && Note.exe",
       "test": "cd build/test/Release && Note_test.exe",
-      "build": "cd build && cmake --build ./ --config Release --target ALL_BUILD -j && cd Release && Note.exe"
+      "build": "cd build && cmake --build ./ --config Release --target ALL_BUILD -j && cd Release && Note.exe",
+      "make:controller": "cd controllers && drogon_ctl create controller -h"
     }
 }
   

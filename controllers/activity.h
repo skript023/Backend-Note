@@ -11,7 +11,7 @@ using namespace drogon::orm;
 using namespace drogon;
 using func_t = std::function<void(HttpResponsePtr const&)>;
 
-namespace cms
+namespace gottvergessen
 {
 	class activity : public drogon::HttpController<activity>
 	{

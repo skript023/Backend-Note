@@ -1,7 +1,7 @@
 #include "activity.h"
 #include "common.hpp"
 
-namespace cms
+namespace gottvergessen
 {
     // Add definition of your processing function here
     void activity::sayHello(const HttpRequestPtr& req, func_t&& callback)
